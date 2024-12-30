@@ -1,0 +1,138 @@
+<section class="p-4 mt-16">
+  <div class="title">
+    <h1 class="text-7xl font-extrabold text-stone-800">Home</h1>
+  </div>
+  <div class="my-10 flex">
+    <div
+      class="relative w-[500px] h-[500px] flex items-center justify-center bg-gray-200 overflow-hidden rounded-xl"
+    >
+      <!-- Carrusel -->
+      <div
+        *ngFor="let product of products; let i = index"
+        class="absolute w-full h-full transition-transform duration-700 ease-in-out w-min-[400px]:"
+        [ngStyle]="{
+          transform: 'translateX(' + (currentIndex - i) * -100 + '%)'
+        }"
+      >
+        <div
+          class="w-full h-full bg-cover bg-center flex flex-col justify-between"
+          [style.backgroundImage]="'url(' + product.image + ')'"
+        >
+          <!-- Categoría -->
+          <div
+            class="py-2 px-4 text-gray-800 bg-white rounded-full self-start mt-4 ml-4"
+          >
+            {{ product.category }}
+          </div>
+
+          <!-- Información del producto -->
+          <div class="p-4 text-white rounded-md self-start mb-8 ml-4">
+            <h1 class="text-2xl font-light text-stone-700">
+              {{ product.name }}
+            </h1>
+            <p class="text-xl text-stone-700">${{ product.price }}</p>
+            <div class="mt-4 flex gap-4">
+              <button
+                (click)="viewProduct(product.id)"
+                class="bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-400 text-stone-800"
+              >
+                Ver Producto
+              </button>
+              <button
+                (click)="viewCategory(product.category)"
+                class="bg-gray-50 px-3 py-2 rounded-full hover:bg-gray-200 transition-all"
+              >
+                <i
+                  class="fa-solid fa-arrow-up-right-from-square text-gray-500"
+                ></i>
+              </button>
+            </div>
+            <div class="carousel-indicators">
+              <button
+                *ngFor="let product of products; let i = index"
+                [class.active]="i === currentIndex"
+                (click)="setIndex(i)"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bg-gray-200 mx-4 rounded-xl flex flex-col justify-between py-6">
+      <h1 id="slogan-shine" class="text-stone-700 m-10 text-6xl">
+        Descubre el Mundo del Gaming al precio más bajo
+      </h1>
+      <div class="flex justify-end">
+        <a
+          href=""
+          class="mx-10 border-[1px] rounded-full transition-colors hover:text-white border-gray-700 p-2 hover:bg-stone-600"
+        >
+          Ver Catálogo
+        </a>
+      </div>
+      <div class="flex bg-white m-10 gap-10 p-5 rounded-3xl">
+        <div class="flex flex-col justify-between">
+          <div class="category">
+            <span class="text-stone-800 bg-gray-200 px-2 py-1 rounded-full"
+              >Exclusive</span
+            >
+          </div>
+          <div class="flex flex-col gap-5">
+            <span class="text-4xl font-semibold"
+              >Potencia y Optimización en un solo lugar.</span
+            >
+            <p class="w-[1/2] text-gray-400">
+              La nueva RTX 4080 Ti viene a competir en el mercado tecnológico,
+              todo al alcance de tu bolsillo etc etc etc
+            </p>
+          </div>
+          <a class="bg-gray-300 px-2 py-1 rounded-full size-fit" href=""
+            ><i class="fa-solid fa-arrow-up-right-from-square text-gray-500"></i
+          ></a>
+        </div>
+        <div class="max-w-[300px]">
+          <img class="rounded-xl" src="assets/4080ti.webp" alt="" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="my-10">
+  <h2 class="text-4xl font-bold text-stone-800 mb-6">Productos destacados</h2>
+  <div
+    class="flex gap-6 overflow-x-auto scrollbar-hide px-4"
+    style="scroll-snap-type: x mandatory"
+  >
+    <div
+      *ngFor="let product of featuredProducts"
+      class="flex-none w-[300px] bg-white rounded-xl shadow-md overflow-hidden"
+      style="scroll-snap-align: start"
+    >
+      <div
+        class="h-[200px] bg-cover bg-center"
+        [style.backgroundImage]="'url(' + product.image + ')'"
+      ></div>
+      <div class="p-4 flex flex-col gap-2">
+        <span
+          class="text-sm text-gray-500 bg-gray-200 px-3 py-1 rounded-full self-start"
+        >
+          {{ product.category }}
+        </span>
+        <h3 class="text-xl font-semibold text-stone-800">
+          {{ product.name }}
+        </h3>
+        <p class="text-gray-600 text-sm">{{ product.description }}</p>
+        <span class="text-lg font-bold text-stone-800"
+          >${{ product.price }}</span
+        >
+        <button
+          (click)="viewProduct(product.id)"
+          class="mt-4 bg-stone-800 text-white px-4 py-2 rounded-full hover:bg-stone-600 transition-all"
+        >
+          Ver producto
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
