@@ -8,7 +8,7 @@
     >
       <!-- Carrusel -->
       <div
-        *ngFor="let product of products; let i = index"
+        *ngFor="let product of featuredProducts; let i = index"
         class="absolute w-full h-full transition-transform duration-700 ease-in-out w-min-[400px]:"
         [ngStyle]="{
           transform: 'translateX(' + (currentIndex - i) * -100 + '%)'
@@ -16,21 +16,21 @@
       >
         <div
           class="w-full h-full bg-cover bg-center flex flex-col justify-between"
-          [style.backgroundImage]="'url(' + product.image + ')'"
+          [style.backgroundImage]="'url(' + product.imagen_url + ')'"
         >
           <!-- Categoría -->
           <div
             class="py-2 px-4 text-gray-800 bg-white rounded-full self-start mt-4 ml-4"
           >
-            {{ product.category }}
+            {{ product.categoria_nombre }}
           </div>
 
           <!-- Información del producto -->
           <div class="p-4 text-white rounded-md self-start mb-8 ml-4">
             <h1 class="text-2xl font-light text-stone-700">
-              {{ product.name }}
+              {{ product.nombre }}
             </h1>
-            <p class="text-xl text-stone-700">${{ product.price }}</p>
+            <p class="text-xl text-stone-700">${{ product.precio }}</p>
             <div class="mt-4 flex gap-4">
               <button
                 (click)="viewProduct(product.id)"
@@ -39,7 +39,7 @@
                 Ver Producto
               </button>
               <button
-                (click)="viewCategory(product.category)"
+                (click)="viewCategory(product.categoria_nombre)"
                 class="bg-gray-50 px-3 py-2 rounded-full hover:bg-gray-200 transition-all"
               >
                 <i
@@ -49,7 +49,7 @@
             </div>
             <div class="carousel-indicators">
               <button
-                *ngFor="let product of products; let i = index"
+                *ngFor="let product of featuredProducts; let i = index"
                 [class.active]="i === currentIndex"
                 (click)="setIndex(i)"
               ></button>
@@ -100,39 +100,57 @@
 
 <div class="my-10">
   <h2 class="text-4xl font-bold text-stone-800 mb-6">Productos destacados</h2>
-  <div
-    class="flex gap-6 overflow-x-auto scrollbar-hide px-4"
-    style="scroll-snap-type: x mandatory"
-  >
+  <div class="relative flex items-center">
+    <!-- Botón anterior -->
+    <button
+      (click)="prev()"
+      class="absolute left-0 bg-stone-800 text-white px-4 py-2 rounded-full hover:bg-stone-600 transition-all z-10"
+    >
+      &#10094;
+    </button>
+
     <div
-      *ngFor="let product of featuredProducts"
-      class="flex-none w-[300px] bg-white rounded-xl shadow-md overflow-hidden"
-      style="scroll-snap-align: start"
+      class="flex gap-6 overflow-hidden scrollbar-hide px-4 w-full"
+      style="scroll-snap-type: x mandatory"
     >
       <div
-        class="h-[200px] bg-cover bg-center"
-        [style.backgroundImage]="'url(' + product.image + ')'"
-      ></div>
-      <div class="p-4 flex flex-col gap-2">
-        <span
-          class="text-sm text-gray-500 bg-gray-200 px-3 py-1 rounded-full self-start"
-        >
-          {{ product.category }}
-        </span>
-        <h3 class="text-xl font-semibold text-stone-800">
-          {{ product.name }}
-        </h3>
-        <p class="text-gray-600 text-sm">{{ product.description }}</p>
-        <span class="text-lg font-bold text-stone-800"
-          >${{ product.price }}</span
-        >
-        <button
-          (click)="viewProduct(product.id)"
-          class="mt-4 bg-stone-800 text-white px-4 py-2 rounded-full hover:bg-stone-600 transition-all"
-        >
-          Ver producto
-        </button>
+        *ngFor="let product of featuredProducts"
+        class="flex-none w-[300px] bg-white rounded-xl shadow-md overflow-hidden"
+        style="scroll-snap-align: start"
+      >
+        <div
+          class="h-[200px] bg-cover bg-center"
+          [style.backgroundImage]="'url(' + product.imagen_url + ')'"
+        ></div>
+        <div class="p-4 flex flex-col gap-2">
+          <span
+            class="text-sm text-gray-500 bg-gray-200 px-3 py-1 rounded-full self-start"
+          >
+            {{ product.categoria_nombre }}
+          </span>
+          <h3 class="text-xl font-semibold text-stone-800">
+            {{ product.nombre }}
+          </h3>
+          <p class="text-gray-600 text-sm">{{ product.description }}</p>
+          <span class="text-lg font-bold text-stone-800"
+            >${{ product.precio }}</span
+          >
+          <button
+            (click)="viewProduct(product.id)"
+            class="mt-4 bg-stone-800 text-white px-4 py-2 rounded-full hover:bg-stone-600 transition-all"
+          >
+            Ver producto
+          </button>
+        </div>
       </div>
     </div>
+
+    <!-- Botón siguiente -->
+    <button
+      (click)="next()"
+      class="absolute right-0 bg-stone-800 text-white px-4 py-2 rounded-full hover:bg-stone-600 transition-all z-10"
+    >
+      &#10095;
+    </button>
   </div>
 </div>
