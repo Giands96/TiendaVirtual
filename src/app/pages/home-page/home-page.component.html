@@ -1,5 +1,5 @@
-<section class="p-4 mt-16">
-  <div class="title">
+<section class="relative">
+  <div class="title md:text-left text-center">
     <h1 class="text-7xl font-extrabold text-stone-800">Home</h1>
   </div>
   <div class="my-10 flex">
@@ -8,7 +8,7 @@
     >
       <!-- Carrusel -->
       <div
-        *ngFor="let product of featuredProducts; let i = index"
+        *ngFor="let product of products; let i = index"
         class="absolute w-full h-full transition-transform duration-700 ease-in-out w-min-[400px]:"
         [ngStyle]="{
           transform: 'translateX(' + (currentIndex - i) * -100 + '%)'
@@ -30,10 +30,17 @@
             <h1 class="text-2xl font-light text-stone-700">
               {{ product.nombre }}
             </h1>
-            <p class="text-xl text-stone-700">${{ product.precio }}</p>
+            <div class="flex gap-2">
+              <span class="text-lg text-stone-300 line-through">
+                ${{ product.precio_regular }}
+              </span>
+              <span class="text-lg font-bold text-stone-800"
+                >${{ product.precio_oferta }}</span
+              >
+            </div>
             <div class="mt-4 flex gap-4">
               <button
-                (click)="viewProduct(product.id)"
+                (click)="viewProduct(product.id_producto)"
                 class="bg-gray-200 px-4 py-2 rounded-full hover:bg-gray-400 text-stone-800"
               >
                 Ver Producto
@@ -49,7 +56,7 @@
             </div>
             <div class="carousel-indicators">
               <button
-                *ngFor="let product of featuredProducts; let i = index"
+                *ngFor="let product of products; let i = index"
                 [class.active]="i === currentIndex"
                 (click)="setIndex(i)"
               ></button>
@@ -100,7 +107,7 @@
 
 <div class="my-10">
   <h2 class="text-4xl font-bold text-stone-800 mb-6">Productos destacados</h2>
-  <div class="relative flex items-center">
+  <div class="relative flex items-center mx-10 gap-4">
     <!-- Botón anterior -->
     <button
       (click)="prevGeneral()"
@@ -108,10 +115,9 @@
     >
       &#10094;
     </button>
-
     <div
       #productCarousel
-      class="flex gap-6 overflow-hidden scrollbar-hide px-4 w-full p-10"
+      class="flex gap-6 overflow-hidden scrollbar-hide px-4 md:max-w-[1400px] max-w-[400px] p-10 mx-4"
       style="scroll-snap-type: x mandatory; scroll-behavior: smooth"
     >
       <div
@@ -132,12 +138,20 @@
           <h3 class="text-xl font-semibold text-stone-800">
             {{ product.nombre }}
           </h3>
-          <p class="text-gray-600 text-sm">{{ product.descripcion }}</p>
-          <span class="text-lg font-bold text-stone-800">
-            ${{ product.precio }}
-          </span>
+          <p class="text-gray-600 text-sm line-clamp-1">
+            {{ product.descripcion }}
+          </p>
+          <div class="flex gap-2">
+            <span class="text-lg font-bold text-stone-300 line-through">
+              ${{ product.precio_regular }}
+            </span>
+            <span class="text-lg font-bold text-stone-800"
+              >${{ product.precio_oferta }}</span
+            >
+          </div>
+
           <button
-            (click)="viewProduct(product.id)"
+            (click)="viewProduct(product.id_producto)"
             class="mt-4 bg-stone-800 text-white px-4 py-2 rounded-full hover:bg-stone-600 transition-all"
           >
             Ver producto

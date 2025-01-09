@@ -1,3 +1,37 @@
-<main>
-  <section class=""></section>
-</main>
+<section>
+  <div class="title md:text-left text-center">
+    <h1 class="text-7xl font-extrabold text-stone-800">Explore</h1>
+  </div>
+
+  <div>
+    <div class="bg-white">
+      <label for="CategoryFilter">Categorias:</label>
+      <select
+        name="CategoryFilter"
+        id="CategoryFilter"
+        class="border border-gray-300 rounded-md p-2"
+        [(ngModel)]="selectedCategory"
+      >
+        <option *ngFor="let category of categories" [value]="category">
+          {{ category }}
+        </option>
+      </select>
+
+      <input type="text" placeholder="¿Qué producto estás buscando?" />
+    </div>
+  </div>
+
+  <div
+    class="container grid grid-cols-3 grid-rows-3 gap-10 items-center mx-auto"
+  >
+    <div class="text-center">13</div>
+    <div class="col-start-1 row-start-2 text-center">14</div>
+    <div class="col-start-1 row-start-3 text-center">15</div>
+    <div class="col-start-2 row-start-3 text-center">16</div>
+    <div class="col-start-2 row-start-2 text-center">17</div>
+    <div class="col-start-2 row-start-1 text-center">18</div>
+    <div class="col-start-3 row-start-1 text-center">19</div>
+    <div class="col-start-3 row-start-2 text-center">20</div>
+    <div class="text-center">21</div>
+  </div>
+</section>
